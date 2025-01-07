@@ -9,6 +9,7 @@ export class HardcodedAuthenticationService {
 
   authenticate(username:string, password:string){
     if(username==='lohithpuvvala' && password==='dummy'){
+      sessionStorage.setItem('authenticaterUser',username);
       return true;
     }else{
       return false;
