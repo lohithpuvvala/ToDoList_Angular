@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +23,12 @@ export class LoginComponent {
   invalidLogin=false;
   
 
-  constructor(private router: Router){ }
+  constructor(private router: Router,
+    private hardcodedAuthenticationService:HardcodedAuthenticationService
+  ){ }
 
   handleLogin(){
-    if(this.username==='lohithpuvvala' && this.password==='dummy')
+    if(this.hardcodedAuthenticationService.authenticate(this.username,this.password))
     {
       this.router.navigate(['welcome', this.username])
       this.invalidLogin = false;
