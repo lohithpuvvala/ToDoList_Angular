@@ -1,16 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgIf, NgFor, UpperCasePipe, DatePipe } from '@angular/common';
-
-export class Todo {
-  constructor(
-    public id: number,
-    public description:string,
-    public done: boolean,
-    public targetDate:Date
-  ){
-    
-  }
-}
+import { TodoDataService } from '../service/data/todo-data.service';
 
 @Component({
   selector: 'app-list-todos',
@@ -23,10 +13,35 @@ export class Todo {
   templateUrl: './list-todos.component.html',
   styleUrl: './list-todos.component.css'
 })
-export class ListTodosComponent {
-  todos = [
-    new Todo(1, 'Learn Angular JS', false, new Date()),
-    new Todo(2, 'Learn Advanced Python', false, new Date()),
-    new Todo(3, "Complete Can't Hurt Me book by David Goggins", false, new Date()),
-  ]
+export class ListTodosComponent implements OnInit{
+  todos: Todo[] = []
+  constructor(
+    private todoService:TodoDataService
+  ){
+
+  }
+  ngOnInit(): void {
+      this.todoService.retrieveAllTodos('lohithpuvvala').subscribe(
+        response => {
+          console.log(response);
+          this.todos = response;
+        }
+      );
+  }
+  // todos = [
+  //   new Todo(1, 'Learn Angular JS', false, new Date()),
+  //   new Todo(2, 'Learn Advanced Python', false, new Date()),
+  //   new Todo(3, "Complete Can't Hurt Me book by David Goggins", false, new Date()),
+  // ]
 }
+export class Todo {
+  constructor(
+    public id: number,
+    public description:string,
+    public done: boolean,
+    public targetDate:Date
+  ){
+    
+  }
+}
+
