@@ -44,6 +44,11 @@ export class ListTodosComponent implements OnInit{
       }
     );
   }
+
+  updateTodo(id: number)
+  {
+    console.log(`update ${id}`);
+  }
   // todos = [
   //   new Todo(1, 'Learn Angular JS', false, new Date()),
   //   new Todo(2, 'Learn Advanced Python', false, new Date()),
