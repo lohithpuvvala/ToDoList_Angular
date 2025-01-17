@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { RouteGaurdService } from './service/route-gaurd.service';
+import { TodoComponent } from './todo/todo.component';
 
 // welcome 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'welcome/:name', component: WelcomeComponent, canActivate:[RouteGaurdService]},
   { path: 'todos', component: ListTodosComponent, canActivate:[RouteGaurdService]},
+  { path: 'todos/:id', component: TodoComponent, canActivate:[RouteGaurdService]},
   { path: 'logout', component: LogoutComponent, canActivate:[RouteGaurdService]},
 
   { path: '**', component: ErrorComponent }

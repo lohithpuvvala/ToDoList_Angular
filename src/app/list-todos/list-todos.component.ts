@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf, NgFor, UpperCasePipe, DatePipe } from '@angular/common';
 import { TodoDataService } from '../service/data/todo-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-todos',
@@ -17,7 +18,8 @@ export class ListTodosComponent implements OnInit{
   todos: Todo[] = []
   message: string = ''
   constructor(
-    private todoService:TodoDataService
+    private todoService:TodoDataService,
+    private router:Router,
   ){
 
   }
@@ -48,6 +50,7 @@ export class ListTodosComponent implements OnInit{
   updateTodo(id: number)
   {
     console.log(`update ${id}`);
+    this.router.navigate(['todos',id]);
   }
   // todos = [
   //   new Todo(1, 'Learn Angular JS', false, new Date()),
