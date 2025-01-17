@@ -42,7 +42,7 @@ export class ListTodosComponent implements OnInit{
     this.todoService.deleteTodo('lohithpuvvala',id).subscribe(
       response => {
         console.log(response);
-        this.message = `Delete of Todo ${id} Successful!`
+        this.message = `Delete Todo of id:${id} Successful!`
         this.refreshTodos();
       }
     );
@@ -52,6 +52,11 @@ export class ListTodosComponent implements OnInit{
   {
     console.log(`update ${id}`);
     this.router.navigate(['todos',id]);
+  }
+
+  addTodo()
+  {
+    this.router.navigate(['todos',-1])
   }
   // todos = [
   //   new Todo(1, 'Learn Angular JS', false, new Date()),
