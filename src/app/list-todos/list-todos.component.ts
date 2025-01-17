@@ -15,18 +15,34 @@ import { TodoDataService } from '../service/data/todo-data.service';
 })
 export class ListTodosComponent implements OnInit{
   todos: Todo[] = []
+  message: string = ''
   constructor(
     private todoService:TodoDataService
   ){
 
   }
   ngOnInit(): void {
-      this.todoService.retrieveAllTodos('lohithpuvvala').subscribe(
-        response => {
-          console.log(response);
-          this.todos = response;
-        }
-      );
+      this.refreshTodos();
+  }
+
+  refreshTodos(){
+    this.todoService.retrieveAllTodos('lohithpuvvala').subscribe(
+      response => {
+        console.log(response);
+        this.todos = response;
+      }
+    );
+  }
+  
+  deleteTodo(id: number) {
+    console.log(`delete Todo ${id}`);
+    this.todoService.deleteTodo('lohithpuvvala',id).subscribe(
+      response => {
+        console.log(response);
+        this.message = `Delete of Todo ${id} Successful!`
+        this.refreshTodos();
+      }
+    );
   }
   // todos = [
   //   new Todo(1, 'Learn Angular JS', false, new Date()),
