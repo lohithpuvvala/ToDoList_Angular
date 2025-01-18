@@ -8,16 +8,6 @@ import { map } from 'rxjs/operators';
 export class BasicAuthenticationService {
   constructor(private http: HttpClient) {}
 
-  authenticate(username: string, password: string) {
-    console.log('before ' + this.isUserLoggedIn());
-    if (username === 'lohithpuvvala' && password === 'dummy') {
-      sessionStorage.setItem('authenticaterUser', username);
-      console.log('after ' + this.isUserLoggedIn());
-      return true;
-    }
-    return false;
-  }
-
   executeAuthenticationService(username: string, password: string) {
     let basicAuthHeaderString =
       'Basic ' + window.btoa(username + ':' + password);
@@ -30,10 +20,19 @@ export class BasicAuthenticationService {
       .pipe(
         map((data) => {
           sessionStorage.setItem('authenticaterUser', username);
-          // sessionStorage.setItem('token', basicAuthHeaderString);
+          sessionStorage.setItem('token', basicAuthHeaderString);
           return data;
         })
       );
+  }
+
+  getAuthenticatedUser() {
+    return sessionStorage.getItem('authenticaterUser');
+  }
+
+  getAuthenticatedToken() {
+    if (this.getAuthenticatedUser()) return sessionStorage.getItem('token');
+    else return null;
   }
 
   isUserLoggedIn() {
@@ -43,6 +42,7 @@ export class BasicAuthenticationService {
 
   logout() {
     sessionStorage.removeItem('authenticaterUser');
+    sessionStorage.removeItem('token');
   }
 }
 
