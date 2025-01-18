@@ -22,16 +22,15 @@ export class BasicAuthenticationService {
     let basicAuthHeaderString =
       'Basic ' + window.btoa(username + ':' + password);
 
-    let header = new HttpHeaders({
+    let headers = new HttpHeaders({
       Authorization: basicAuthHeaderString,
     });
     return this.http
-      .get<AuthenticationBean>(`http://localhost:8080/basicauth`, {
-        headers: header,
-      })
+      .get<AuthenticationBean>(`http://localhost:8080/basicauth`, { headers })
       .pipe(
         map((data) => {
           sessionStorage.setItem('authenticaterUser', username);
+          // sessionStorage.setItem('token', basicAuthHeaderString);
           return data;
         })
       );
